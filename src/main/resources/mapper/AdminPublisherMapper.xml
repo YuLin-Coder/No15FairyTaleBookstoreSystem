@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.li.dao.AdminPublisherMapper">
+  <resultMap id="BaseResultMap" type="com.li.model.AdminPublisher">
+    <result column="publisherid" jdbcType="BIGINT" property="publisherid" />
+    <result column="publishername" jdbcType="VARCHAR" property="publishername" />
+    <result column="publisheraddress" jdbcType="VARCHAR" property="publisheraddress" />
+    <result column="publisherphone" jdbcType="VARCHAR" property="publisherphone" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    publisherid, publishername, publisheraddress, publisherphone
+  </sql>
+  <select id="list" resultMap="BaseResultMap"  parameterType="java.lang.Integer" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM publisher
+    order by publisherid desc limit #{limit},#{offset}
+  </select>
+
+  <select id="listCount" resultType="java.lang.Integer" >
+    SELECT count(1)
+    FROM publisher
+  </select>
+
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from publisher
+    where publisherid = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="add" parameterType="com.li.model.AdminPublisher">
+    insert into publisher
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="publishername != null">
+        publishername,
+      </if>
+      <if test="publisheraddress != null">
+        publisheraddress,
+      </if>
+      <if test="publisherphone != null">
+        publisherphone,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="publishername != null">
+        #{publishername,jdbcType=VARCHAR},
+      </if>
+      <if test="publisheraddress != null">
+        #{publisheraddress,jdbcType=VARCHAR},
+      </if>
+      <if test="publisherphone != null">
+        #{publisherphone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

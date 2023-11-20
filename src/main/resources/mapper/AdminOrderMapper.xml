@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.li.dao.AdminOrderMapper">
+  <resultMap id="BaseResultMap" type="com.li.model.AdminOrder">
+    <result column="orderid" jdbcType="BIGINT" property="orderid" />
+    <result column="ordernumber" jdbcType="VARCHAR" property="ordernumber" />
+    <result column="ordername" jdbcType="VARCHAR" property="ordername" />
+    <result column="orderstatus" jdbcType="INTEGER" property="orderstatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    orderid, ordernumber, ordername, orderstatus
+  </sql>
+  <select id="list" resultMap="BaseResultMap"  parameterType="java.lang.Integer" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM orders
+    order by orderid desc limit #{limit},#{offset}
+  </select>
+
+  <select id="listCount" resultType="java.lang.Integer" >
+    SELECT count(1)
+    FROM orders
+  </select>
+
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from orders
+    where orderid = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="add" parameterType="com.li.model.AdminOrder">
+    insert into orders
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ordernumber != null">
+        ordernumber,
+      </if>
+      <if test="ordername != null">
+        ordername,
+      </if>
+      <if test="orderstatus != null">
+        orderstatus,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ordernumber != null">
+        #{ordernumber,jdbcType=VARCHAR},
+      </if>
+      <if test="ordername != null">
+        #{ordername,jdbcType=VARCHAR},
+      </if>
+      <if test="orderstatus != null">
+        #{orderstatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

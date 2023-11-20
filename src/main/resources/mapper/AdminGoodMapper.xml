@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.li.dao.AdminGoodMapper">
+  <resultMap id="BaseResultMap" type="com.li.model.AdminGood">
+    <result column="goodsid" jdbcType="BIGINT" property="goodsid" />
+    <result column="goodsname" jdbcType="VARCHAR" property="goodsname" />
+    <result column="breifintroduction" jdbcType="VARCHAR" property="breifintroduction" />
+    <result column="detailintroduction" jdbcType="VARCHAR" property="detailintroduction" />
+    <result column="goodsprice" jdbcType="REAL" property="goodsprice" />
+    <result column="photo" jdbcType="VARCHAR" property="photo" />
+    <result column="category" jdbcType="VARCHAR" property="category" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    goodsid, goodsname, breifintroduction, detailintroduction, goodsprice, photo, category
+  </sql>
+
+  <select id="list" resultMap="BaseResultMap"  parameterType="java.lang.Integer" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM goods
+    order by goodsid desc limit #{limit},#{offset}
+  </select>
+
+  <select id="listCount" resultType="java.lang.Integer" >
+    SELECT count(1)
+    FROM goods
+  </select>
+
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from goods
+    where goodsid = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="add" parameterType="com.li.model.AdminGood">
+    insert into goods
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="goodsname != null">
+        goodsname,
+      </if>
+      <if test="breifintroduction != null">
+        breifintroduction,
+      </if>
+      <if test="detailintroduction != null">
+        detailintroduction,
+      </if>
+      <if test="goodsprice != null">
+        goodsprice,
+      </if>
+      <if test="photo != null">
+        photo,
+      </if>
+      <if test="category != null">
+        category,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="goodsname != null">
+        #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="breifintroduction != null">
+        #{breifintroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="detailintroduction != null">
+        #{detailintroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsprice != null">
+        #{goodsprice,jdbcType=REAL},
+      </if>
+      <if test="photo != null">
+        #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        #{category,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

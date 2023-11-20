@@ -1,0 +1,199 @@
+@CHARSET "UTF-8";
+/** 解决select2在bootstrap model中下拉框被覆盖的问题 */
+	.select2-drop {
+        z-index: 10050 !important;
+    }
+ 
+    .select2-search-choice-close {
+        margin-top: 0 !important;
+        right: 2px !important;
+        min-height: 10px;
+    }
+ 
+        .select2-search-choice-close:before {
+            color: black !important;
+        }
+    /*防止select2不会自动失去焦点*/
+    .select2-container {
+        z-index: 16000 !important;
+    }
+ 
+    .select2-drop-mask {
+        z-index: 15990 !important;
+    }
+ 
+    .select2-drop-active {
+        z-index: 15995 !important;
+    }
+	.col-right{
+		position:relative;
+	}
+	#sectionBtn_back:hover{
+	cursor: pointer;
+	}
+	body{
+		margin:0;
+		padding:0;
+	}
+	#imglist{
+		width:100%;
+	}
+	.list{
+		position: relative;
+		width:100%;
+		display:flex;
+		height:60px;
+		padding:10px 0;
+		border-bottom: 1px solid rgba(0,0,0,.1);
+	}
+	.list img{
+		flex:0 0 40px;
+		width: 40px;
+		height: 40px;
+		border-radius: 50% !important;
+		vertical-align: top;
+	}
+	.list>p:nth-of-type(1){
+		flex:1;
+		font-size: 14px;
+		line-height: 40px;
+		margin-left:15px;
+		overflow: hidden; 
+		white-space: nowrap;  
+		text-overflow: ellipsis;
+		margin-right:10px;
+	}
+	.list .reddot{
+		position:absolute;
+		right:200px;
+		top:10px;
+		width:10px;
+		height:10px;
+		background:red;
+		border-radius:50% !important;
+		display:none;
+	}
+	p{
+			margin: 0;
+			padding: 0;
+		}
+		.content{
+			height:410px;
+			overflow-y:scroll;
+		}
+		/*滚动条样式*/
+        .content::-webkit-scrollbar {/*滚动条整体样式*/
+            width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
+            height: 4px;
+        }
+        .content::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+            border-radius: 5px;
+            -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+            background: rgba(0,0,0,0.2);
+        }
+        .content::-webkit-scrollbar-track {/*滚动条里面轨道*/
+            -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+            border-radius: 0;
+            background: rgba(0,0,0,0.1);
+        }
+		.content>div{
+			padding: 20px;
+		}
+		.client{
+			display: flex;
+		}
+		.admin{
+			display: flex;
+			flex-direction: row-reverse;
+			/*justify-content: flex-end*/
+		}
+		.head{
+			flex: 0 0 40px; 
+		}
+		.head img{
+			width: 40px;
+			height: 40px;
+			border-radius: 50% !important;
+			vertical-align: top;
+		}
+		.message{
+			/* flex: 1; */
+			padding-left: 10px;
+			font-size: 14px;
+			line-height: 20px;
+			position: relative;
+		}
+		.message>p{
+			max-width: 400px;
+			font-size: 14px;
+			line-height: 20px;
+			padding:5px 8px 5px;
+			background:#F0F0F0;
+			border-radius: 12px !important;
+		}
+		.message-right{
+			padding-right: 10px;
+		}
+		.message-right>p{
+			max-width: 400px;
+			font-size: 14px;
+			line-height: 20px;
+			padding: 8px;
+			background:	#53FF53;
+			border-radius: 12px !important;
+		}
+		.col-right{
+			position:relative;
+		}
+		#send{
+			position:absolute;
+			top:525px;
+			right:15px;
+			width:55px;
+			height:25px;
+			text-align: center;
+			line-height: 25px;
+			border-radius: 10px !important;
+			border:none !important;
+			background:rgb(220,220,220) !important;
+			
+		}
+		#send:hover{
+			background:rgb(34,139,34) !important;
+			color:#fff;
+		}
+		.off{
+			position:absolute;
+			display:none;
+			right:20px;
+			top:20px;
+			z-index:100;
+		}
+		.button {
+			position: absolute;
+			display:block;
+			width:20px;
+			height:20px;
+			margin:0 auto;
+		    background-color: rgba(216,204,204,0.8);
+		    color:#fff;
+		    border-radius: 50% !important;
+		    border: none;
+		    text-align: center;
+		    line-height:20px;
+		    font-size: 10px;
+		    z-index:100;
+		}
+		.list:hover p{
+			display:block;
+			
+		}
+		.off:hover span{
+			background:	rgba(248,11,37,0.8);
+		}
+		.userNick{
+			position: absolute;
+			top: -20px;
+		    font-size: 10px;
+		    left: -41px;
+		}

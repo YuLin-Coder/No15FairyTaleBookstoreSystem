@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.li.dao.AdminUserMapper">
+  <resultMap id="BaseResultMap" type="com.li.model.AdminUser">
+    <result column="userid" jdbcType="BIGINT" property="userid" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password_" jdbcType="VARCHAR" property="password" />
+    <result column="grade" jdbcType="VARCHAR" property="grade" />
+    <result column="truename" jdbcType="VARCHAR" property="truename" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="address_" jdbcType="VARCHAR" property="address" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    userid, username, password_, grade, truename, email, phone, address_
+  </sql>
+  <select id="selectByuserid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from users
+    where userid = #{userid,jdbcType=BIGINT}
+  </select>
+
+  <select id="getUserByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from users
+    where username = #{username,jdbcType=VARCHAR}
+  </select>
+
+  <select id="list" resultMap="BaseResultMap"  parameterType="java.lang.Integer" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM users
+    order by userid desc limit #{limit},#{offset}
+  </select>
+  <select id="listCount" resultType="java.lang.Integer" >
+    SELECT count(1)
+    FROM users
+  </select>
+
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from users
+    where userid = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="add" parameterType="com.li.model.AdminUser">
+    insert into users
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        password_,
+      </if>
+      <if test="grade != null">
+        grade,
+      </if>
+      <if test="truename != null">
+        truename,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="address != null">
+        address_,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null">
+        #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="truename != null">
+        #{truename,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+</mapper>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+    <display-name>ssm-book-admin</display-name>
+
+    <!-- 加载spring容器 -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:spring.xml</param-value>
+    </context-param>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <!-- 配置过滤器，解决中文乱码问题 -->
+    <filter>
+        <filter-name>encoding</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceRequestEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceResponseEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>encoding</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!-- 配置SpringMVC前端控制器DispatcherServlet -->
+    <servlet>
+        <servlet-name>ssm-book-admin</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <!--springmvc.xml 是自己创建的SpringMVC全局配置文件，用contextConfigLocation作为参数名来加载
+            如果不配置 contextConfigLocation，那么默认加载的是/WEB-INF/servlet名称-servlet.xml，在这里也就是 springmvc-servlet.xml
+        -->
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <!-- SpringMVC全局配置文件的文件名以及目录 -->
+            <param-value>classpath:springmvc.xml</param-value>
+        </init-param>
+        <!-- 配置springmvc什么时候启动，参数必须为整数 -->
+        <!-- 如果为0或者大于0，则springMVC随着容器启动而启动 -->
+        <!-- 如果小于0，则在第一次请求进来的时候启动 -->
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ssm-book-admin</servlet-name>
+        <!-- 所有的请求都进入springMVC -->
+        <!--第一种配置：*.do,还可以写*.action等等，表示以.do结尾的或者以.action结尾的URL都由前端控制器DispatcherServlet来解析
+            第二种配置：/,所有访问的 URL 都由DispatcherServlet来解析，但是这里最好配置静态文件不由DispatcherServlet来解析
+            错误配置：/*,注意这里是不能这样配置的，应为如果这样写，最后转发到 jsp 页面的时候，仍然会由DispatcherServlet进行解析，
+                    而这时候会找不到对应的Handler，从而报错！！！
+        -->
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+    <welcome-file-list>
+        <welcome-file></welcome-file>
+    </welcome-file-list>
+</web-app>
