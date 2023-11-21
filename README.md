@@ -47,7 +47,6 @@
 
 - <b>JDK 1.8</b>
 
-
 ## 运行截图
 ![](screenshot/1.png)
 
